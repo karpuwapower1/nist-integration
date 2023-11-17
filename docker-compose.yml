@@ -1,0 +1,29 @@
+version: "3.1"
+
+services:
+  db:
+    image: postgres
+    container_name: postgres_db_2
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=nist_db
+    restart: always
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+
+  nist-integration:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: nist-integration
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+volumes:
+  db_volume:

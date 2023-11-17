@@ -1,0 +1,27 @@
+spring:
+  application.name: nist-integration
+
+
+  datasource:
+    url: jdbc:postgresql://postgres_db_2:5432/nist_db?useSSL=false
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    properties.hibernate:
+      temp.use_jdbc_metadata_defaults: false
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      jdbc.lob.non_contextual_creation: true
+    hibernate.ddl-auto: none
+    generate-ddl: false
+    show-sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+
+config:
+  request-per-page: 10000
+
+server:
+  port: 8080

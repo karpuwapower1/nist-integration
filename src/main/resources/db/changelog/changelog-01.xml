@@ -1,0 +1,46 @@
+<databaseChangeLog
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+  <changeSet id="2023-11-15" author="a.karpilovich">
+    <createTable tableName="cpe">
+      <column name="cpe_name_id" type="varchar(255)">
+        <constraints primaryKey="true"/>
+      </column>
+      <column name="cpe_name" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deprecated" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+      <column name="created" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="last_modified" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="titles" type="TEXT"/>
+      <column name="refs" type="TEXT"/>
+    </createTable>
+
+    <createTable tableName="deprecate">
+      <column name="cpe_name_id" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="deprecated_by" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <addPrimaryKey tableName="deprecate" columnNames="cpe_name_id,deprecated_by" constraintName="primary_key_constraint"/>
+
+    <createTable tableName="update_changelog">
+      <column name="update" type="bigint">
+        <constraints primaryKey="true"/>
+      </column>
+    </createTable>
+
+  </changeSet>
+</databaseChangeLog>
